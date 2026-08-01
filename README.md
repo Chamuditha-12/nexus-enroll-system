@@ -27,6 +27,55 @@ principles (SOLID) and object-oriented design patterns.
 ## Tech Stack
 - Language: Java
 
+## Tree structure
+- NexusEnroll/
+│
+├── src/
+│   └── nexusenroll/
+│       │
+│       ├── Main.java
+│       │
+│       ├── models/
+│       │   ├── User.java
+│       │   ├── Student.java
+│       │   ├── Faculty.java
+│       │   ├── Administrator.java
+│       │   ├── Course.java
+│       │   └── Grade.java
+│       │
+│       ├── patterns/
+│       │   ├── factory/
+│       │   │   └── UserFactory.java
+│       │   │
+│       │   ├── strategy/
+│       │   │   ├── IValidationStrategy.java
+│       │   │   ├── PrerequisiteCheckStrategy.java
+│       │   │   ├── CapacityCheckStrategy.java
+│       │   │   └── TimeConflictCheckStrategy.java
+│       │   │
+│       │   ├── observer/
+│       │   │   ├── IObserver.java
+│       │   │   ├── NotificationSubject.java
+│       │   │   └── Advisor.java
+│       │   │
+│       │   └── state/
+│       │       ├── IGradeState.java
+│       │       ├── PendingState.java
+│       │       └── SubmittedState.java
+│       │
+│       ├── services/
+│       │   ├── EnrollmentService.java
+│       │   ├── FacultyService.java
+│       │   └── AdminService.java
+│       │
+│       └── cli/
+│           ├── StudentMenu.java
+│           ├── FacultyMenu.java
+│           └── AdminMenu.java
+│
+└── test/
+    └── TestScenarios.java
+
 ## Assignment
 Software Architecture (SCS 2303) - Assignment 3
 Deadline: 20 August 2026
