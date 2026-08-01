@@ -24,57 +24,22 @@ principles (SOLID) and object-oriented design patterns.
 - State - grade lifecycle (Pending -> Submitted)
 - Facade - simplified enrolment service interface
 
-## Tech Stack
-- Language: Java
+## Project Structure
+src/nexusenroll/
+├── models/ - Data Tier (Student, Faculty, Course, etc.)
+├── patterns/ - Design pattern implementations
+├── services/ - Business Logic Tier
+└── cli/ - Presentation Tier (console menus)
 
-## Tree structure
-NexusEnroll/
-│
-├── src/
-│   └── nexusenroll/
-│       │
-│       ├── Main.java
-│       │
-│       ├── models/
-│       │   ├── User.java
-│       │   ├── Student.java
-│       │   ├── Faculty.java
-│       │   ├── Administrator.java
-│       │   ├── Course.java
-│       │   └── Grade.java
-│       │
-│       ├── patterns/
-│       │   ├── factory/
-│       │   │   └── UserFactory.java
-│       │   │
-│       │   ├── strategy/
-│       │   │   ├── IValidationStrategy.java
-│       │   │   ├── PrerequisiteCheckStrategy.java
-│       │   │   ├── CapacityCheckStrategy.java
-│       │   │   └── TimeConflictCheckStrategy.java
-│       │   │
-│       │   ├── observer/
-│       │   │   ├── IObserver.java
-│       │   │   ├── NotificationSubject.java
-│       │   │   └── Advisor.java
-│       │   │
-│       │   └── state/
-│       │       ├── IGradeState.java
-│       │       ├── PendingState.java
-│       │       └── SubmittedState.java
-│       │
-│       ├── services/
-│       │   ├── EnrollmentService.java
-│       │   ├── FacultyService.java
-│       │   └── AdminService.java
-│       │
-│       └── cli/
-│           ├── StudentMenu.java
-│           ├── FacultyMenu.java
-│           └── AdminMenu.java
-│
-└── test/
-    └── TestScenarios.java
+## Tech Stack
+- Language: Java (JDK 17+)
+
+## How to Build and Run
+```bash
+cd src
+javac nexusenroll/*.java nexusenroll/**/*.java -d ../out
+java -cp ../out nexusenroll.Main
+```
 
 ## Assignment
 Software Architecture (SCS 2303) - Assignment 3
@@ -101,4 +66,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-  
