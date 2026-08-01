@@ -42,3 +42,11 @@ target/
 
 # Dependency directories
 vendor/
+# Compiled output
+*.exe
+*.o
+*.out
+
+# Misc
+*.tmp
+*.bak
