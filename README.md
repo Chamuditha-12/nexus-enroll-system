@@ -28,7 +28,7 @@ principles (SOLID) and object-oriented design patterns.
 - Language: Java
 
 ## Tree structure
-- NexusEnroll/
+NexusEnroll/
 │
 ├── src/
 │   └── nexusenroll/
