@@ -1,83 +1,47 @@
-# NexusEnroll - Course Enrollment System
+# NexusEnroll - University Course Enrolment System
 
- Project Overview
+A modernised university course enrolment system built as a proof-of-concept 
+for the Software Architecture (SCS 2303) module, University of Colombo School 
+of Computing (UCSC).
 
-NexusEnroll is a Java-based command-line interface (CLI) proof-of-concept for a university course enrollment system. It replaces the legacy system "LegacyEnroll" with a modern, modular architecture that demonstrates key software design patterns and principles.
+## Overview
+NexusEnroll replaces a legacy monolithic enrolment system with a scalable, 
+maintainable 3-Tier architecture, demonstrating core software design 
+principles (SOLID, DRY, KISS) and object-oriented design patterns.
 
- Team Members and Contributions
+## Modules
+- **Student Module** - course search/browsing, enrolment/drop, current & past 
+  semester schedules, academic progress tracking
+- **Faculty Module** - class rosters (with contact info), grade submission 
+  and correction, course change requests
+- **Administrator Module** - course/program management (create, edit, 
+  delete), student/faculty account management, change-request approval, 
+  and reporting (enrolment, faculty workload, course popularity, 
+  department statistics)
 
-A.D.C. Madushan -- 24001236
-Project Leader and Design Lead
-Overall project coordination, architecture design oversight, design patterns integration, all parts handling and integration
+## Architecture
+3-Tier Architecture: Presentation Tier -> Business Logic Tier -> Data Tier
 
-G.D.T. Aberathna -- 24000027
-Documentation and Compilation Lead
-Introduction and Background, Problem Statement and Legacy System Analysis, Documentation of Team Work, Conclusion and Appendices, Final formatting and consistency check
+- **Presentation Tier** (`cli/`) - console menus for Student, Faculty, and 
+  Administrator roles
+- **Business Logic Tier** (`services/`, `patterns/`) - core rules, 
+  validation, and design pattern implementations
+- **Data Tier** (`models/`) - in-memory data representation (Student, 
+  Faculty, Course, Grade, Program, etc.)
 
-## Project Structure
-src/nexusenroll/
-├── models/ - Data Tier (Student, Faculty, Course, etc.)
-├── patterns/ - Design pattern implementations
-├── services/ - Business Logic Tier
-└── cli/ - Presentation Tier (console menus)
+## Design Patterns Used
+- **Factory Method** - `UserFactory` centralises creation of Student/Faculty/Administrator objects
+- **Strategy** - `PrerequisiteCheckStrategy`, `CapacityCheckStrategy`, `TimeConflictCheckStrategy` encapsulate enrolment validation rules
+- **Observer** - `NotificationSubject`/`IObserver`/`Advisor` power the decoupled notification system (waitlist alerts, advisor alerts)
+- **State** - `PendingState`/`SubmittedState` model the grade lifecycle
+- **Facade** - `EnrollmentService` provides a single simplified interface over all enrolment validation logic
 
-## Tech Stack
-- Language: Java (JDK 17+)
-
-## How to Build and Run
-```bash
-cd src
-javac nexusenroll/*.java nexusenroll/**/*.java -d ../out
-java -cp ../out nexusenroll.Main
+##Project Structure
 ```
-
-S.W.A.H. Samarawickrama -- 24001813
-Faculty Module and Facade Pattern Lead
-Faculty Module features, Facade pattern (enrollment validation), Sequence Diagram, Faculty Implementation and Test Cases
-
-H.M.M.A. Bandara -- 24000248
-Admin Module, Observer and Principles Lead
-Administrator Module, Observer pattern (notifications), Activity and State Diagrams, SOLID/DRY/KISS principles, Tools and Integration
-
-K.G.S. Vishwajith -- 24002135
-Team Member and Testing Support
-Assisted with student module testing, helped debug enrollment validation logic, supported faculty grade submission testing, contributed to documentation review, and provided general testing assistance across all modules
-
-
- Architecture-- 3-Tier Architecture
-
-The system follows a clean 3-Tier Architecture:
-
-
- PRESENTATION TIER (CLI - Student/Faculty/Admin Menus)     
- BUSINESS LOGIC TIER (Services - Enrollment, Faculty, Admin Services)   
- DATA TIER (Models - User, Student, Faculty, Course) 
-
-Design Patterns Used
-
-Factory Method  -Creational 
-purpose-Creates different types of users (Student, Faculty, Admin) 
-Strategy - Behavioral
-purpose- Implements various validation strategies (Prerequisite, Capacity, Time Conflict) 
-Observer - Behavioral 
-purpose-Notifies advisors when grade changes occur 
-State - Behavioral 
-purpose-Manages grade lifecycle (Pending to Submitted) 
-
-Software Design Principles Followed
-
-SOLID Principles - Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion
-DRY (Don't Repeat Yourself) - Code reuse through abstraction
-KISS (Keep It Simple, Stupid) - Simple, maintainable code
-
- Project Structure
 NexusEnroll/
-│
 ├── src/
 │   └── nexusenroll/
-│       │
 │       ├── Main.java
-│       │
 │       ├── models/
 │       │   ├── User.java
 │       │   ├── Student.java
@@ -87,71 +51,66 @@ NexusEnroll/
 │       │   ├── Grade.java
 │       │   ├── Program.java
 │       │   └── CourseChangeRequest.java
-│       │
 │       ├── patterns/
 │       │   ├── factory/
 │       │   │   └── UserFactory.java
-│       │   │
 │       │   ├── strategy/
 │       │   │   ├── IValidationStrategy.java
 │       │   │   ├── PrerequisiteCheckStrategy.java
 │       │   │   ├── CapacityCheckStrategy.java
 │       │   │   └── TimeConflictCheckStrategy.java
-│       │   │
 │       │   ├── observer/
 │       │   │   ├── IObserver.java
 │       │   │   ├── NotificationSubject.java
 │       │   │   └── Advisor.java
-│       │   │
 │       │   └── state/
 │       │       ├── IGradeState.java
 │       │       ├── PendingState.java
 │       │       └── SubmittedState.java
-│       │
 │       ├── services/
 │       │   ├── EnrollmentService.java
 │       │   ├── FacultyService.java
 │       │   └── AdminService.java
-│       │
 │       └── cli/
 │           ├── StudentMenu.java
 │           ├── FacultyMenu.java
 │           └── AdminMenu.java
-│
 └── test/
     └── TestScenarios.java
+```
 
-Features
- Student Module
-- View available courses
-- Enroll in courses with validation (Strategy Pattern: Prerequisite, Capacity, Time Conflict checks)
-- View enrolled courses
-- View grades
+## Tech Stack
+- Language: Java (JDK 17+)
+- Tools: VS Code, javac/java (JDK command-line tools)
 
-Faculty Module
-- View assigned courses
-- Submit grades for students (State Pattern: Pending to Submitted)
-- View student lists
+## How to Build and Run
 
- Admin Module
-- Add/remove courses
-- Manage users
-- View system reports
-- Notify advisors about grade changes (Observer Pattern)
+**Interactive CLI (Main.java):**
+```bash
+cd src
+javac nexusenroll/*.java nexusenroll/models/*.java nexusenroll/patterns/factory/*.java nexusenroll/patterns/strategy/*.java nexusenroll/patterns/observer/*.java nexusenroll/patterns/state/*.java nexusenroll/services/*.java nexusenroll/cli/*.java
+java nexusenroll.Main
+```
 
-Technologies Used
+**Automated demo (TestScenarios.java, no input needed):**
+```bash
+cd src
+javac nexusenroll/*.java nexusenroll/models/*.java nexusenroll/patterns/factory/*.java nexusenroll/patterns/strategy/*.java nexusenroll/patterns/observer/*.java nexusenroll/patterns/state/*.java nexusenroll/services/*.java nexusenroll/cli/*.java
+javac -cp . ../test/TestScenarios.java -d .
+java TestScenarios
+```
 
-- Language: Java (JDK 8+)
-- Architecture: 3-Tier Architecture
-- Design Patterns: Factory Method, Strategy, Observer, State
-- Principles: SOLID, DRY, KISS
-- Database: In-memory (no external database)
+## How to Contribute (for team members)
 
+1. Clone the repo: `git clone <repo-url>`
+2. Create a feature branch: `git checkout -b feature/your-module-name`
+3. Make your changes in your assigned folder (`models/`, `services/`, `cli/`, etc.)
+4. Compile and test locally before pushing
+5. Commit with a clear message: `git commit -m "feat: implement grade submission logic"`
+6. Push and open a Pull Request for review before merging to `main`
 
- License
-
-MIT License
- Permission is hereby granted, free of charge, to any person obtaining a copy
+## Assignment
+Software Architecture (SCS 2303) - Assignment 3
 Deadline: 20 August 2026
 
 ## MIT License
