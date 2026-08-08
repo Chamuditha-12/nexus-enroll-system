@@ -236,4 +236,99 @@ public class AdminMenu {
         }
     }
 
+    private void assignCourseToFaculty() {
+        System.out.print("Enter Faculty ID: ");
+        String facultyId = scanner.nextLine().trim();
+        System.out.print("Enter Course ID: ");
+        String courseId = scanner.nextLine().trim();
+        adminService.assignCourseToFaculty(facultyId, courseId);
+        System.out.println("Course assigned to faculty.");
+    }
+
+    private void forceAddStudent() {
+        System.out.print("Enter Student ID: ");
+        String studentId = scanner.nextLine().trim();
+        Student student = adminService.getStudent(studentId);
+        System.out.print("Enter Course ID: ");
+        String courseId = scanner.nextLine().trim();
+        Course course = adminService.getCourse(courseId);
+        if (student == null || course == null) {
+            System.out.println("Student or course not found.");
+            return;
+        }
+        adminService.forceAddStudent(student, course);
+        System.out.println("Force-added " + student.getName() + " to " + course.getName() + ".");
+    }
+
+    private void deactivateStudent() {
+        System.out.print("Enter Student ID to deactivate: ");
+        String id = scanner.nextLine().trim();
+        adminService.deactivateStudent(id);
+        System.out.println("Student deactivated.");
+    }
+
+    private void addProgram() {
+        System.out.print("Enter Program ID: ");
+        String id = scanner.nextLine().trim();
+        System.out.print("Enter Program Name: ");
+        String name = scanner.nextLine().trim();
+        System.out.print("Enter Total Required Credits: ");
+        int credits = readInt();
+        System.out.print("Enter Minimum GPA: ");
+        double gpa = Double.parseDouble(scanner.nextLine().trim());
+        adminService.addProgram(id, name, credits, gpa);
+
+        System.out.print("Add required course IDs one at a time (blank line to stop): ");
+        while (true) {
+            String courseId = scanner.nextLine().trim();
+            if (courseId.isEmpty())
+                break;
+            adminService.addRequiredCourseToProgram(id, courseId);
+            System.out.print("Add another (blank to stop): ");
+        }
+        System.out.println("Program added successfully.");
+    }
+
+    private void viewAllPrograms() {
+        System.out.println("\n--- All Degree Programs ---");
+        for (Program p : adminService.getAllPrograms().values()) {
+            System.out.println("- " + p.getId() + ": " + p.getName()
+                    + " | Credits: " + p.getTotalCredits()
+                    + " | Min GPA: " + p.getMinGpa()
+                    + " | Required Courses: " + p.getRequiredCourseIds());
+        }
+    }
+
+    private void viewPendingChangeRequests() {
+        System.out.println("\n--- Pending Course Change Requests ---");
+        List<CourseChangeRequest> pending = adminService.getPendingChangeRequests();
+        if (pending.isEmpty()) {
+            System.out.println("No pending requests.");
+        }
+        for (CourseChangeRequest r : pending) {
+            System.out.println("- " + r.getRequestId() + " | Faculty: " + r.getFaculty().getName()
+                    + " | Course: " + r.getCourse().getName()
+                    + " | Change: " + r.getRequestedChange());
+        }
+    }
+
+    private void resolveChangeRequest() {
+        System.out.print("Enter Request ID: ");
+        String requestId = scanner.nextLine().trim();
+        System.out.print("Approve or Reject? (A/R): ");
+        String decision = scanner.nextLine().trim().toUpperCase();
+        boolean ok = decision.equals("A")
+                ? adminService.approveChangeRequest(requestId)
+                : adminService.rejectChangeRequest(requestId);
+        System.out.println(ok ? "Request " + requestId + " resolved." : "Request not found.");
+    }
+
+    private int readInt() {
+        try {
+            return Integer.parseInt(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+}
 
