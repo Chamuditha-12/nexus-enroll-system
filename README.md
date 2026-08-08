@@ -158,4 +158,4 @@ copies or substantial portions of the Software.
 - All data is stored in-memory (no persistent database)
 - The system demonstrates key architectural patterns and software design principles
 - Java version: 8 or higher    
->>>>>>> 3f056cb23269b51947238856c5b4c06dba766cdf
+
