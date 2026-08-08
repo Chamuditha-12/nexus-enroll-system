@@ -29,4 +29,4 @@ principles (SOLID) and object-oriented design patterns.
 
 ## Assignment
 Software Architecture (SCS 2303) - Assignment 3
-Deadline: 20 August 2026
+Deadline: 20 Aug
