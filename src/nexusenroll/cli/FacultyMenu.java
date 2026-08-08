@@ -74,4 +74,58 @@ public class FacultyMenu {
         }
     }
 
+    private void submitGrade() {
+        System.out.print("Enter Student ID: ");
+        String studentId = scanner.nextLine().trim();
+        Student student = adminService.getStudent(studentId);
+        if (student == null) {
+            System.out.println("No such student.");
+            return;
+        }
+        System.out.print("Enter Course ID: ");
+        String courseId = scanner.nextLine().trim();
+        System.out.print("Enter Grade Letter (e.g. A, B, C): ");
+        char letter = scanner.nextLine().trim().charAt(0);
 
+        facultyService.submitGrade(student, courseId, letter);
+        System.out.println("Grade submitted for " + student.getName() + ".");
+    }
+
+    private void correctGrade() {
+        System.out.print("Enter Student ID: ");
+        String studentId = scanner.nextLine().trim();
+        Student student = adminService.getStudent(studentId);
+        if (student == null) {
+            System.out.println("No such student.");
+            return;
+        }
+        System.out.print("Enter Course ID: ");
+        String courseId = scanner.nextLine().trim();
+        System.out.print("Enter New Grade Letter: ");
+        char letter = scanner.nextLine().trim().charAt(0);
+
+        facultyService.correctGrade(student, courseId, letter);
+        System.out.println("Grade corrected for " + student.getName() + ".");
+    }
+
+    private void requestCourseChange(Faculty faculty) {
+        System.out.print("Enter Course ID: ");
+        String courseId = scanner.nextLine().trim();
+        Course course = adminService.getCourse(courseId);
+        if (course == null) {
+            System.out.println("No such course.");
+            return;
+        }
+        System.out.print("Describe the requested change: ");
+        String change = scanner.nextLine().trim();
+        System.out.println(facultyService.requestCourseChange(faculty, course, change, adminService));
+    }
+
+    private int readInt() {
+        try {
+            return Integer.parseInt(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+}
