@@ -14,15 +14,23 @@ G.D.T. Aberathna -- 24000027
 Documentation and Compilation Lead
 Introduction and Background, Problem Statement and Legacy System Analysis, Documentation of Team Work, Conclusion and Appendices, Final formatting and consistency check
 
-R.A.N.S. Sathsara -- 24001867
-Student Module and Factory Pattern Lead
-Student Module features, Factory Method pattern, Student Class Diagram, Student Implementation and Test Cases
+## Project Structure
+src/nexusenroll/
+├── models/ - Data Tier (Student, Faculty, Course, etc.)
+├── patterns/ - Design pattern implementations
+├── services/ - Business Logic Tier
+└── cli/ - Presentation Tier (console menus)
 
-<<<<<<< HEAD
-## Assignment
-Software Architecture (SCS 2303) - Assignment 3
-Deadline: 20 Aug
-=======
+## Tech Stack
+- Language: Java (JDK 17+)
+
+## How to Build and Run
+```bash
+cd src
+javac nexusenroll/*.java nexusenroll/**/*.java -d ../out
+java -cp ../out nexusenroll.Main
+```
+
 S.W.A.H. Samarawickrama -- 24001813
 Faculty Module and Facade Pattern Lead
 Faculty Module features, Facade pattern (enrollment validation), Sequence Diagram, Faculty Implementation and Test Cases
@@ -144,6 +152,13 @@ Technologies Used
 
 MIT License
  Permission is hereby granted, free of charge, to any person obtaining a copy
+Deadline: 20 August 2026
+
+## MIT License
+
+Copyright (c) 2026 NexusEnroll Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
@@ -152,10 +167,11 @@ furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
- Notes
 
-- This is a proof-of-concept implementation
-- All data is stored in-memory (no persistent database)
-- The system demonstrates key architectural patterns and software design principles
-- Java version: 8 or higher    
-
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
