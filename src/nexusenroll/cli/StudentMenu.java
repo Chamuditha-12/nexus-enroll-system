@@ -75,4 +75,63 @@ public class StudentMenu {
                 + " | Prerequisites: " + c.getPrerequisites());
     }
 
+    private void browseCatalogue() {
+        System.out.println("\n--- Course Catalogue ---");
+        if (adminService.getAllCourses().isEmpty()) {
+            System.out.println("No courses available yet.");
+            return;
+        }
+        for (Course c : adminService.getAllCourses().values()) {
+            printCourse(c);
+        }
+    }
+
+    private void searchCourses() {
+        System.out.println("\nSearch by: 1. Department  2. Instructor  3. Keyword");
+        System.out.print("Choice: ");
+        int mode = readInt();
+        System.out.print("Enter search text: ");
+        String text = scanner.nextLine().trim();
+
+        List<Course> results;
+        switch (mode) {
+            case 1:
+                results = adminService.searchCoursesByDepartment(text);
+                break;
+            case 2:
+                results = adminService.searchCoursesByInstructor(text);
+                break;
+            case 3:
+                results = adminService.searchCoursesByKeyword(text);
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                return;
+        }
+
+        System.out.println("\n--- Search Results ---");
+        if (results.isEmpty()) {
+            System.out.println("No matching courses.");
+        }
+        for (Course c : results) {
+            printCourse(c);
+        }
+    }
+
+    private void enrol(Student student) {
+        System.out.print("Enter Course ID: ");
+        String courseId = scanner.nextLine().trim();
+        Course course = adminService.getCourse(courseId);
+        if (course == null) {
+            System.out.println("No such course.");
+            return;
+        }
+        String error = enrollmentService.enroll(student, course);
+        if (error == null) {
+            System.out.println("Enrolment successful! Seats remaining: "
+                    + (course.getCapacity() - course.getEnrolledCount()));
+        } else {
+            System.out.println("Enrolment failed: " + error);
+        }
+    }
 
