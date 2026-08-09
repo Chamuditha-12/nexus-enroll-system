@@ -1,5 +1,16 @@
 package nexusenroll.patterns.strategy;
 
-public class PrerequisiteCheckStrategy {
-    
+import nexusenroll.models.Course;
+import nexusenroll.models.Student;
+
+public class PrerequisiteCheckStrategy implements IValidationStrategy {
+    @Override
+    public String validate(Student student, Course course) {
+        for (String prereq : course.getPrerequisites()) {
+            if (!student.hasCompleted(prereq)) {
+                return "Missing prerequisite: " + prereq;
+            }
+        }
+        return null; // valid
+    }
 }
