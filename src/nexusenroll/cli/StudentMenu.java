@@ -135,3 +135,56 @@ public class StudentMenu {
         }
     }
 
+    private void drop(Student student) {
+        System.out.print("Enter Course ID to drop: ");
+        String courseId = scanner.nextLine().trim();
+        Course course = adminService.getCourse(courseId);
+        if (course == null || !student.getEnrolledCourses().contains(course)) {
+            System.out.println("You are not enrolled in that course.");
+            return;
+        }
+        enrollmentService.drop(student, course);
+        System.out.println("Dropped " + course.getName() + ".");
+    }
+
+    private void viewSchedule(Student student) {
+        System.out.println("\n--- My Current Schedule ---");
+        if (student.getEnrolledCourses().isEmpty()) {
+            System.out.println("You are not enrolled in any courses.");
+            return;
+        }
+        for (Course c : student.getEnrolledCourses()) {
+            System.out.println("- " + c.getName() + " | " + c.getSchedule());
+        }
+    }
+
+    private void viewPastSemesterSchedule(Student student) {
+        System.out.println("\n--- Past Semester Schedule ---");
+        if (student.getCompletedCourseSemesters().isEmpty()) {
+            System.out.println("No completed courses on record.");
+            return;
+        }
+        student.getCompletedCourseSemesters().forEach((courseId, semester) -> {
+            Course c = adminService.getCourse(courseId);
+            String courseName = (c != null) ? c.getName() : courseId;
+            System.out.println("- " + courseName + " (" + semester + ")");
+        });
+    }
+
+    private void trackProgress(Student student) {
+        System.out.println("\n--- Academic Progress ---");
+        student.getGrades().forEach((courseId, grade) -> System.out.println("- " + courseId + ": " + grade.getLetter()
+                + " (" + grade.getStatus() + ")"));
+        if (student.getGrades().isEmpty()) {
+            System.out.println("No grades recorded yet.");
+        }
+    }
+
+    private int readInt() {
+        try {
+            return Integer.parseInt(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+}
