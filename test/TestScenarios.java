@@ -38,3 +38,18 @@ public class TestScenarios {
                 // Both students completed the prerequisite
                 alice.addCompleted("CS101");
                 bob.addCompleted("CS101");
+                // ---- Scenario 2 (Student Module): Alice enrols - Strategy Pattern validates
+                // ----
+                System.out.println("\n--- Scenario 2: Alice enrols in CS201 (capacity = 1) ---");
+                String result1 = enrollmentService.enroll(alice, cs201);
+                System.out.println(result1 == null ? "ENROLMENT SUCCESS for Alice." : "FAILED: " + result1);
+
+                // ---- Scenario 3 (Student Module): Bob tries to enrol - course now full ----
+                System.out.println("\n--- Scenario 3: Bob tries to enrol in CS201 (now full) ---");
+                String result2 = enrollmentService.enroll(bob, cs201);
+                System.out.println(result2 == null ? "ENROLMENT SUCCESS for Bob." : "FAILED: " + result2);
+
+                // ---- Scenario 4 (System-wide requirement): Alice drops - Observer notifies
+                // ----
+                System.out.println("\n--- Scenario 4: Alice drops CS201 (Observer Pattern fires) ---");
+                enrollmentService.drop(alice, cs201);
