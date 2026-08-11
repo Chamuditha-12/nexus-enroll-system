@@ -53,3 +53,27 @@ public class TestScenarios {
                 // ----
                 System.out.println("\n--- Scenario 4: Alice drops CS201 (Observer Pattern fires) ---");
                 enrollmentService.drop(alice, cs201);
+                
+                // ---- Scenario 5 (Faculty Module): grade submission - State Pattern ----
+                System.out.println("\n--- Scenario 5: Faculty submits and later corrects a grade ---");
+                facultyService.submitGrade(alice, "CS201", 'B');
+                System.out.println("Status after submit: " + alice.getGrade("CS201").getStatus());
+                facultyService.correctGrade(alice, "CS201", 'A');
+                System.out.println("Status after correction: " + alice.getGrade("CS201").getStatus()
+                                + ", new letter: " + alice.getGrade("CS201").getLetter());
+
+                // ---- Scenario 6 (Faculty Module): view roster ----
+                System.out.println("\n--- Scenario 6: Faculty views class roster for CS201 ---");
+                facultyService.viewRoster(cs201, adminService.getAllStudents())
+                                .forEach(s -> System.out.println("- " + s.getId() + ": " + s.getName()));
+
+                // ---- Scenario 7 (Admin Module): reports ----
+                System.out.println("\n--- Scenario 7: Admin generates reports ---");
+                System.out.print(adminService.generateEnrollmentReport());
+                System.out.print(adminService.generateFacultyWorkloadReport());
+
+                System.out.println("\n=========== END OF TEST SCENARIOS ===========");
+        }
+}
+
+                
