@@ -20,6 +20,7 @@ public class Course extends NotificationSubject {
     private String instructorName;
     private String department;
     private final List<String> prerequisites = new ArrayList<>();
+    private final List<Student> waitlist = new ArrayList<>();
 
     /** Backward-compatible constructor (defaults for the new fields). */
     public Course(String id, String name, int capacity, String schedule) {
@@ -100,9 +101,8 @@ public class Course extends NotificationSubject {
     public void addPrerequisite(String courseId) {
         prerequisites.add(courseId);
     }
-}
 
-public boolean hasSeats() {
+    public boolean hasSeats() {
         return enrolledCount < capacity;
     }
 
@@ -129,3 +129,4 @@ public boolean hasSeats() {
             notifyAll("SEAT_AVAILABLE", "A seat opened up in " + name + ". You can now enrol.");
         }
     }
+}
