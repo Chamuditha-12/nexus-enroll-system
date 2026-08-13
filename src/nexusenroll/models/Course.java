@@ -101,3 +101,31 @@ public class Course extends NotificationSubject {
         prerequisites.add(courseId);
     }
 }
+
+public boolean hasSeats() {
+        return enrolledCount < capacity;
+    }
+
+    /** Used by the Course Popularity Trends report (>90% capacity). */
+    public double getOccupancyRate() {
+        return capacity == 0 ? 0.0 : (double) enrolledCount / capacity;
+    }
+
+    public void commitEnrollment() {
+        enrolledCount++;
+    }
+
+    public void addToWaitlist(Student student) {
+        waitlist.add(student);
+        subscribe(student);
+    }
+
+    public void dropStudent() {
+        if (enrolledCount > 0)
+            enrolledCount--;
+        notifyAll("ADVISOR_ALERT", "A student dropped " + name + ".");
+        if (!waitlist.isEmpty()) {
+            waitlist.remove(0);
+            notifyAll("SEAT_AVAILABLE", "A seat opened up in " + name + ". You can now enrol.");
+        }
+    }
