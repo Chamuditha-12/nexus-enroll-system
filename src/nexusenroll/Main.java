@@ -1,3 +1,4 @@
+// NexusEnroll Main entry point - developed collaboratively by Team NexusEnroll
 package nexusenroll;
 
 import java.util.Scanner;
@@ -20,7 +21,7 @@ public class Main {
         StudentMenu studentMenu = new StudentMenu(scanner, adminService, enrollmentService);
         FacultyMenu facultyMenu = new FacultyMenu(scanner, adminService, facultyService);
         AdminMenu adminMenu = new AdminMenu(scanner, adminService);
-        
+
         boolean running = true;
         while (running) {
             System.out.println("\nMain Menu - Select Role:");
