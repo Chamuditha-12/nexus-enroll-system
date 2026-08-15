@@ -7,39 +7,107 @@ of Computing (UCSC).
 ## Overview
 NexusEnroll replaces a legacy monolithic enrolment system with a scalable, 
 maintainable 3-Tier architecture, demonstrating core software design 
-principles (SOLID) and object-oriented design patterns.
+principles (SOLID, DRY, KISS) and object-oriented design patterns.
 
 ## Modules
-- Student Module - course browsing, enrolment/drop, schedule, academic progress
-- Faculty Module - class rosters, grade submission, course change requests
-- Administrator Module - course/program management, reporting & analytics
+- **Student Module** - course search/browsing, enrolment/drop, current & past 
+  semester schedules, academic progress tracking
+- **Faculty Module** - class rosters (with contact info), grade submission 
+  and correction, course change requests
+- **Administrator Module** - course/program management (create, edit, 
+  delete), student/faculty account management, change-request approval, 
+  and reporting (enrolment, faculty workload, course popularity, 
+  department statistics)
 
 ## Architecture
 3-Tier Architecture: Presentation Tier -> Business Logic Tier -> Data Tier
 
-## Design Patterns Used
-- Factory Method - user creation (Student/Faculty/Admin)
-- Strategy - enrolment validation rules
-- Observer - notification system (waitlist, advisor alerts)
-- State - grade lifecycle (Pending -> Submitted)
-- Facade - simplified enrolment service interface
+- **Presentation Tier** (`cli/`) - console menus for Student, Faculty, and 
+  Administrator roles
+- **Business Logic Tier** (`services/`, `patterns/`) - core rules, 
+  validation, and design pattern implementations
+- **Data Tier** (`models/`) - in-memory data representation (Student, 
+  Faculty, Course, Grade, Program, etc.)
 
-## Project Structure
-src/nexusenroll/
-├── models/ - Data Tier (Student, Faculty, Course, etc.)
-├── patterns/ - Design pattern implementations
-├── services/ - Business Logic Tier
-└── cli/ - Presentation Tier (console menus)
+## Design Patterns Used
+- **Factory Method** - `UserFactory` centralises creation of Student/Faculty/Administrator objects
+- **Strategy** - `PrerequisiteCheckStrategy`, `CapacityCheckStrategy`, `TimeConflictCheckStrategy` encapsulate enrolment validation rules
+- **Observer** - `NotificationSubject`/`IObserver`/`Advisor` power the decoupled notification system (waitlist alerts, advisor alerts)
+- **State** - `PendingState`/`SubmittedState` model the grade lifecycle
+- **Facade** - `EnrollmentService` provides a single simplified interface over all enrolment validation logic
+
+##Project Structure
+```
+NexusEnroll/
+├── src/
+│   └── nexusenroll/
+│       ├── Main.java
+│       ├── models/
+│       │   ├── User.java
+│       │   ├── Student.java
+│       │   ├── Faculty.java
+│       │   ├── Administrator.java
+│       │   ├── Course.java
+│       │   ├── Grade.java
+│       │   ├── Program.java
+│       │   └── CourseChangeRequest.java
+│       ├── patterns/
+│       │   ├── factory/
+│       │   │   └── UserFactory.java
+│       │   ├── strategy/
+│       │   │   ├── IValidationStrategy.java
+│       │   │   ├── PrerequisiteCheckStrategy.java
+│       │   │   ├── CapacityCheckStrategy.java
+│       │   │   └── TimeConflictCheckStrategy.java
+│       │   ├── observer/
+│       │   │   ├── IObserver.java
+│       │   │   ├── NotificationSubject.java
+│       │   │   └── Advisor.java
+│       │   └── state/
+│       │       ├── IGradeState.java
+│       │       ├── PendingState.java
+│       │       └── SubmittedState.java
+│       ├── services/
+│       │   ├── EnrollmentService.java
+│       │   ├── FacultyService.java
+│       │   └── AdminService.java
+│       └── cli/
+│           ├── StudentMenu.java
+│           ├── FacultyMenu.java
+│           └── AdminMenu.java
+└── test/
+    └── TestScenarios.java
+```
 
 ## Tech Stack
 - Language: Java (JDK 17+)
+- Tools: VS Code, javac/java (JDK command-line tools)
 
 ## How to Build and Run
+
+**Interactive CLI (Main.java):**
 ```bash
 cd src
-javac nexusenroll/*.java nexusenroll/**/*.java -d ../out
-java -cp ../out nexusenroll.Main
+javac nexusenroll/*.java nexusenroll/models/*.java nexusenroll/patterns/factory/*.java nexusenroll/patterns/strategy/*.java nexusenroll/patterns/observer/*.java nexusenroll/patterns/state/*.java nexusenroll/services/*.java nexusenroll/cli/*.java
+java nexusenroll.Main
 ```
+
+**Automated demo (TestScenarios.java, no input needed):**
+```bash
+cd src
+javac nexusenroll/*.java nexusenroll/models/*.java nexusenroll/patterns/factory/*.java nexusenroll/patterns/strategy/*.java nexusenroll/patterns/observer/*.java nexusenroll/patterns/state/*.java nexusenroll/services/*.java nexusenroll/cli/*.java
+javac -cp . ../test/TestScenarios.java -d .
+java TestScenarios
+```
+
+## How to Contribute (for team members)
+
+1. Clone the repo: `git clone <repo-url>`
+2. Create a feature branch: `git checkout -b feature/your-module-name`
+3. Make your changes in your assigned folder (`models/`, `services/`, `cli/`, etc.)
+4. Compile and test locally before pushing
+5. Commit with a clear message: `git commit -m "feat: implement grade submission logic"`
+6. Push and open a Pull Request for review before merging to `main`
 
 ## Assignment
 Software Architecture (SCS 2303) - Assignment 3
