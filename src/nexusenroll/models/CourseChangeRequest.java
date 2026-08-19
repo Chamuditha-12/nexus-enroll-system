@@ -1,11 +1,11 @@
 package nexusenroll.models;
 
 /**
- * NEW: "Instructors can submit requests to update course descriptions, add
+ * Instructors can submit requests to update course descriptions, add
  * prerequisites, or change course capacity (these requests must be approved
- * by an administrator)." This object is what actually gets queued and
- * later approved/rejected by AdminService.
+ * by an administrator).
  */
+
 public class CourseChangeRequest {
     public enum Status {
         PENDING, APPROVED, REJECTED

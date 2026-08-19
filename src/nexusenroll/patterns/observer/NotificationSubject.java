@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * OBSERVER PATTERN - the Subject.
+ * OBSERVER PATTERN -the Subject.
  * Any class that needs to broadcast events (e.g. Course, when a seat opens
  * up) extends this. Observers subscribe once and are notified automatically
  * whenever notifyAll() is called - the Subject never needs to know who its

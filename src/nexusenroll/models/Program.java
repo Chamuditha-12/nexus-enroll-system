@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * NEW: represents a degree program - "Administrators can define and manage
- * degree programs, including the required courses and credits."
+ * represents a degree program - Administrators can define and manage
+ * degree programs, including the required courses and credits.
  */
 public class Program {
     private final String id;

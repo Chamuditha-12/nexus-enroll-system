@@ -8,7 +8,7 @@ import java.util.Map;
 import nexusenroll.patterns.observer.IObserver;
 
 /**
- * UPDATED: added email/phone (Faculty roster requirement: "contact
+ * added email/phone (Faculty roster requirement: "contact
  * information") and a courseId -> semester map so completed courses can be
  * shown as a real "past semester schedule".
  */
@@ -50,7 +50,7 @@ public class Student extends User implements IObserver {
     }
 
     /**
-     * Backward-compatible: marks a course completed with an unspecified semester.
+     * Backward-compatible:marks a course completed with an unspecified semester.
      */
     public void addCompleted(String courseId) {
         addCompleted(courseId, "Unspecified Semester");
@@ -61,7 +61,7 @@ public class Student extends User implements IObserver {
         completedCourseSemester.put(courseId, semester);
     }
 
-    /** Past semester schedule: courseId -> semester it was taken in. */
+    /** Past semester schedule:courseId -> semester it was taken in. */
     public Map<String, String> getCompletedCourseSemesters() {
         return completedCourseSemester;
     }

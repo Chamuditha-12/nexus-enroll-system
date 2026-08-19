@@ -10,7 +10,7 @@ import nexusenroll.models.Grade;
 import nexusenroll.models.Student;
 
 /**
- * UPDATED: requestCourseChange() now actually creates a CourseChangeRequest
+ * requestCourseChange() creates a CourseChangeRequest
  * and queues it in AdminService, instead of just returning a printed
  * message.
  */

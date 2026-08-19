@@ -42,7 +42,7 @@ public class AdminService {
 
     // ---------- Student & Faculty account management ----------
 
-    /** NEW: "Administrators can edit account details." */
+    //Administrators can edit account details.
     public boolean editStudent(String id, String newName, String newEmail, String newPhone) {
         Student s = students.get(id);
         if (s == null)
@@ -56,7 +56,7 @@ public class AdminService {
         return true;
     }
 
-    /** NEW: edit faculty details. */
+    //edit faculty details. 
     public boolean editFaculty(String id, String newName, String newDepartment) {
         Faculty f = faculties.get(id);
         if (f == null)
@@ -84,7 +84,7 @@ public class AdminService {
         return c;
     }
 
-    /** NEW: full-detail course creation. */
+    // full-detail course creation. 
     public Course addCourse(String id, String name, int capacity, String schedule,
             String description, String instructorName, String department) {
         Course c = new Course(id, name, capacity, schedule, description, instructorName, department);
@@ -92,10 +92,7 @@ public class AdminService {
         return c;
     }
 
-    /**
-     * NEW: "Administrators can edit existing course details." Pass
-     * null/empty for any field you don't want to change.
-     */
+    //Administrators can edit existing course details.
     public boolean editCourse(String id, String newName, Integer newCapacity, String newSchedule,
             String newDescription, String newInstructor, String newDepartment) {
         Course c = courses.get(id);
@@ -116,7 +113,7 @@ public class AdminService {
         return true;
     }
 
-    /** NEW: "Administrators can delete courses that are no longer offered." */
+    //Administrators can delete courses that are no longer offered.
     public boolean deleteCourse(String id) {
         return courses.remove(id) != null;
     }
@@ -136,7 +133,7 @@ public class AdminService {
 
     // ---------- Course search (Student Module requirement) ----------
 
-    /** NEW: search by department, instructor, and keyword. */
+    //search by department, instructor, and keyword. 
     public List<Course> searchCoursesByDepartment(String department) {
         List<Course> result = new ArrayList<>();
         for (Course c : courses.values()) {
@@ -170,7 +167,7 @@ public class AdminService {
 
     // ---------- Degree Program management ----------
 
-    /** NEW: "Administrators can define and manage degree programs." */
+    //Administrators can define and manage degree programs.
     public Program addProgram(String id, String name, int totalCredits, double minGpa) {
         Program p = new Program(id, name, totalCredits, minGpa);
         programs.put(id, p);
@@ -189,7 +186,7 @@ public class AdminService {
 
     // ---------- Course change request approval workflow ----------
 
-    /** NEW: called by FacultyService.requestCourseChange(). */
+    //called by FacultyService.requestCourseChange().
     public void submitChangeRequest(CourseChangeRequest request) {
         changeRequests.add(request);
     }
@@ -203,7 +200,7 @@ public class AdminService {
         return pending;
     }
 
-    /** NEW: "these requests must be approved by an administrator." */
+    //these requests must be approved by an administrator.
     public boolean approveChangeRequest(String requestId) {
         for (CourseChangeRequest r : changeRequests) {
             if (r.getRequestId().equals(requestId)) {
@@ -273,7 +270,7 @@ public class AdminService {
         return sb.toString();
     }
 
-    /** NEW: courses currently above 90% capacity. */
+    // courses currently above 90% capacity. 
     public String generateCoursePopularityReport() {
         StringBuilder sb = new StringBuilder();
         sb.append("=== Course Popularity Trends (>90% capacity) ===\n");
@@ -292,7 +289,7 @@ public class AdminService {
         return sb.toString();
     }
 
-    /** NEW: enrolment statistics by department. */
+    // enrolment statistics by department. 
     public String generateEnrollmentByDepartmentReport() {
         Map<String, Integer> byDept = new HashMap<>();
         for (Course c : courses.values()) {

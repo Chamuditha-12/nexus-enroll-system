@@ -6,11 +6,11 @@ import nexusenroll.models.Student;
 import nexusenroll.models.User;
 
 /**
- * FACTORY METHOD PATTERN.
+ * Factory method pattern
  * Centralises the creation logic of every User subtype so that client code
  * (AdminService, CLI menus) never calls "new Student(...)" directly.
  * Open/Closed Principle: adding a new role later (e.g. "Advisor" or "TA")
- * only means extending this factory 
+ * only means extending this factory
  */
 public class UserFactory {
     public static User createUser(String type, String id, String name) {

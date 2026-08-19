@@ -1,4 +1,4 @@
-// NexusEnroll Main entry point - developed collaboratively by Team NexusEnroll
+// NexusEnroll Main entry point
 package nexusenroll;
 
 import java.util.Scanner;

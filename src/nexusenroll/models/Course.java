@@ -5,7 +5,7 @@ import java.util.List;
 import nexusenroll.patterns.observer.NotificationSubject;
 
 /**
- * UPDATED: now carries description, instructorName and department so the
+ * carries description, instructorName and department so the
  * Student Module can display full course info and search by them, and so
  * the Administrator Module can edit these fields and run department-based
  * reports.
