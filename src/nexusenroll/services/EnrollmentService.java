@@ -31,7 +31,7 @@ public class EnrollmentService {
                 return error;
             }
         }
-        // All checks passed - commit
+
         course.commitEnrollment();
         student.enrollIn(course);
         return null;

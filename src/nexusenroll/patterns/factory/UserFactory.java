@@ -10,7 +10,7 @@ import nexusenroll.models.User;
  * Centralises the creation logic of every User subtype so that client code
  * (AdminService, CLI menus) never calls "new Student(...)" directly.
  * Open/Closed Principle: adding a new role later (e.g. "Advisor" or "TA")
- * only means extending this factory - no existing client code changes.
+ * only means extending this factory 
  */
 public class UserFactory {
     public static User createUser(String type, String id, String name) {

@@ -10,8 +10,7 @@ public class SubmittedState implements IGradeState {
 
     @Override
     public void correct(Grade grade, char newLetter) {
-        // Assignment requirement: professor can still correct a submitted grade
-        // "without losing other submitted grades".
+        
         System.out.println("  Correcting SUBMITTED grade for " + grade.getStudentId()
                 + ": " + grade.getLetter() + " -> " + newLetter);
         grade.setLetter(newLetter);
