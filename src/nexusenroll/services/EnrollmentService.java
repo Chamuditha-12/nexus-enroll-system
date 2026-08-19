@@ -9,16 +9,7 @@ import nexusenroll.patterns.strategy.IValidationStrategy;
 import nexusenroll.patterns.strategy.PrerequisiteCheckStrategy;
 import nexusenroll.patterns.strategy.TimeConflictCheckStrategy;
 
-/**
- * FACADE PATTERN.
- * Gives client code (CLI menus) ONE simple entry point - enroll()/drop() -
- * that hides: running every Strategy validator, committing the "all or
- * nothing" transaction, and firing Observer notifications. The client never
- * needs to know these steps exist.
- *
- * Also satisfies the Transaction Management requirement: either every
- * check passes and the enrolment is committed, or nothing changes at all.
- */
+//Facade Pattern 
 public class EnrollmentService {
     private final List<IValidationStrategy> strategies = new ArrayList<>();
 
